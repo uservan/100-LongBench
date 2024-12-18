@@ -1,0 +1,7 @@
+result
+scripts
+data
+preds
+config.json
+*.pyc
+analysis

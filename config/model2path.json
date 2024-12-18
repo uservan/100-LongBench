@@ -1,0 +1,32 @@
+{
+    "longchat-v1.5-7b-32k": "lmsys/longchat-7b-v1.5-32k",
+    "xgen-7b-8k": "Salesforce/xgen-7b-8k-inst",
+    "internlm-7b-8k": "internlm/internlm-chat-7b-8k",
+    "chatglm2-6b": "THUDM/chatglm2-6b",
+    "chatglm2-6b-32k": "THUDM/chatglm2-6b-32k",
+    "vicuna-v1.5-7b-16k": "lmsys/vicuna-7b-v1.5-16k",
+    "llama2-7b-hf":"meta-llama/Llama-2-7b-hf",
+    "llama2-7b-hf-lminfinite":"meta-llama/Llama-2-7b-hf",
+    "llama2-7b-hf-ntk-frozen":"",
+    "llama2-7b-hf-slimpajama-pi-32k":"Leooyii/PI_32k_Slimpajama_1B",
+    "llama2-7b-hf-slimpajama-ntk-32k":"Leooyii/NTK_32k_Slimpajama_1B",
+    "llama2-7b-hf-slimpajama-ntk-64k":"",
+    "llama-2-7b-hf-slimpajama-ntk-64k-2B":"",
+    "llama2-7b-hf-slimpajama-yarn-32k":"Leooyii/YaRN_32k_Slimpajama_1B",
+    "llama2-7b-hf-slimpajama-longlora-32k":"Leooyii/Longlora_32k_Slimpajama_1B",
+    "llama2-7b-hf-slimpajama-landmark":"Leooyii/Landmark_512_Slimpajama_1B",
+    "llama2-7b-hf-selfextend":"meta-llama/Llama-2-7b-hf",
+    "llama2-7b-hf-slimpajama-clex-32k":"Leooyii/Llama-2-7b-CLEX-32k-Slimpajama-1B",
+
+    "llama-3-8B-Instruct":"meta-llama/Meta-Llama-3-8B-Instruct",
+    "llama-3.1-8B-Instruct":"meta-llama/Llama-3.1-8B-Instruct",
+    "llama-3.1-70B-Instruct":"meta-llama/Llama-3.1-70B-Instruct",
+    "Qwen2.5-7B-Instruct":"Qwen/Qwen2.5-7B-Instruct",
+    "Qwen2.5-14B-Instruct":"Qwen/Qwen2.5-14B-Instruct",
+    "llama-3.2-1B-Instruct":"meta-llama/Llama-3.2-1B-Instruct",
+    "llama-3.2-3B-Instruct":"meta-llama/Llama-3.2-3B-Instruct",
+    "phi-3-small-128k-instruct":"microsoft/Phi-3-small-128k-instruct",
+    "phi-3-mini-128k-instruct":"microsoft/Phi-3-mini-128k-instruct",
+    "phi-3-medium-128k-instruct":"microsoft/Phi-3-medium-128k-instruct"
+
+}
