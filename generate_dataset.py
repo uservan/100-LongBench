@@ -4,6 +4,7 @@ import json
 from tqdm import tqdm
 from utils.utils import set_global_path, seed_everything, logger
 from utils.data_utils import *
+import argparse
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 models_dir = os.path.dirname(current_dir)
@@ -23,10 +24,18 @@ func = {
 
 seed_everything(42)
 
-out_path_tmp = set_global_path('data/test')
+def parse_args(args=None):
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--rows', type=int, default=100, help='The number of each dataset')
+    parser.add_argument('--lengths', type=str, default='8,16,32,64,128,256', help='Generated length, where 8 represents 8*1024')
+    parser.add_argument('--save_path', type=str, default='data/test')
+    return parser.parse_args(args)
 
+args = parse_args()
+out_path_tmp = set_global_path(args.save_path)
+lengths = [int(i) for i in args.lengths.split(',')]
 # generate base
-rows, length = 100, 8 # 
+rows, length = args.rows, lengths[0] # 
 if not os.path.exists(out_path_tmp): os.makedirs(out_path_tmp)
 for key in func.keys():
     result = func[key][1](length, rows, func=func[key][0])
@@ -35,7 +44,7 @@ for key in func.keys():
             json.dump(pred, f, ensure_ascii=False)
             f.write('\n')
 # generate each task in different lengths
-rows, lengths = 100, [8, 16, 32 ,64, 128 ,256] 
+rows, lengths = args.rows, lengths
 if not os.path.exists(out_path_tmp): os.makedirs(out_path_tmp)
 for length in tqdm(lengths):
     for key in func.keys():
