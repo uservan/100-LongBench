@@ -15,7 +15,7 @@ api_keys = {
 login(token=token)
 
 def set_global_path(path):
-    return os.path.join('/users/PDS0352/wyang107/project/LCEG/longbench_pro', path)
+    return os.path.join('/users/PDS0352/wyang107/project/100-LongBench', path)
 
 def seed_everything(seed):
     torch.manual_seed(seed)

@@ -16,10 +16,11 @@ sys.path.append(models_dir)
 
 def parse_args(args=None):
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model', type=str, default='llama-3.2-1B-Instruct')
-    parser.add_argument('--pred_path', type=str, default='pred_new2')
+    parser.add_argument('--model', type=str, default='llama-3-8B-Instruct')
+    parser.add_argument('--pred_path', type=str, default='preds/pred_ratio')
     parser.add_argument('--dataset_path', type=str, default='data/open_model')
-    # parser.add_argument('--ratio', type=float, default='1.0')
+    parser.add_argument('--seed', type=int, default=42)
+    parser.add_argument('--ratio', type=float, default=1.0)
     return parser.parse_args(args)
 
 def get_pred(model:LLM, data, max_gen, prompt_format, preds=[] ,out_path=''):
@@ -74,8 +75,8 @@ def read_preds(out_path):
     return preds
 
 if __name__ == '__main__':
-    seed_everything(42)
     args = parse_args()
+    seed_everything(args.seed)
     
     pred_path = set_global_path(args.pred_path) #  set_global_path("pred_new2")
     dataset_path = set_global_path(args.dataset_path) # set_global_path("data/test")
@@ -83,13 +84,14 @@ if __name__ == '__main__':
     model_name = args.model
     logger(model_name)
     # define your model
-    model = load_model(model_name)
+    model = load_model(model_name, ratio=args.ratio)
     # we design specific prompt format and max generation length for each task, feel free to modify them to optimize model output
     dataset2prompt = json.load(open(set_global_path("./config/dataset2prompt.json"), "r"))
     dataset2maxlen = json.load(open(set_global_path("./config/dataset2maxlen.json"), "r"))
     
     file_names = [p.split('.')[0] for p in os.listdir(dataset_path)]
     save_dir = f"{pred_path}/{model_name}"
+    if args.ratio>0: save_dir = f"{pred_path}/{model_name}_{args.ratio}"
     if not os.path.exists(save_dir): os.makedirs(save_dir)
     for dataset in file_names:
         logger(f'testing: {dataset}')

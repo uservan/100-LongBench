@@ -4,4 +4,4 @@ data
 preds
 config.json
 *.pyc
-analysis
+analysis/not

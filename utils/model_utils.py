@@ -24,15 +24,15 @@ def call_api(func, limit=5, pause=10):
             output = func()
             break
         except Exception as e:
-            logger.info(f"Exception while using api: {e}")
+            logger(f"Exception while using api: {e}")
             if "rate limit" in str(e).lower() or "rate_limit" in str(e).lower() or "quota" in str(e).lower() or "429" in str(e):
-                logger.info(f"Rate limit exceeded, waiting {pause} secs and retrying...")
+                logger(f"Rate limit exceeded, waiting {pause} secs and retrying...")
                 time.sleep(pause)
             elif count < limit:
-                logger.info(f"Encountered error {e}, retrying...")
+                logger(f"Encountered error {e}, retrying...")
                 count += 1
             else:
-                logger.info("Skipping generation due to unknown error")
+                logger("Skipping generation due to unknown error")
                 output = None
                 break
     return output
@@ -472,7 +472,7 @@ class HFModel(LLM):
         return pred
 
 def load_model(model_name, **kwargs):
-    logger.info(f'testing: {model_name}')
+    logger(f'testing: {model_name}')
     if "gpt" in model_name:
         model = OpenAIModel(model_name, **kwargs)
     elif "claude" in model_name:
@@ -489,7 +489,7 @@ def load_model_and_tokenizer(path, model_name, use_flash_attention_2=False,  **k
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     if model_name == "llama2-7b-hf" or model_name == "llama2-7b-hf-slimpajama-pi-32k" or model_name == "llama2-7b-hf-slimpajama-longlora-32k":
         config = transformers.AutoConfig.from_pretrained(path)
-        logger.info(f'rope_scaling: {config.rope_scaling}')
+        logger(f'rope_scaling: {config.rope_scaling}')
         model = transformers.AutoModelForCausalLM.from_pretrained(
             path,
             config=config,
@@ -505,7 +505,7 @@ def load_model_and_tokenizer(path, model_name, use_flash_attention_2=False,  **k
         )
     elif model_name == "llama2-7b-hf-slimpajama-ntk-32k":
         config = transformers.AutoConfig.from_pretrained(path)
-        logger.info(f'rope_scaling: {config.rope_scaling}')
+        logger(f'rope_scaling: {config.rope_scaling}')
         from models.llama_ntk_32k import LlamaForCausalLM
         model = LlamaForCausalLM.from_pretrained(
             path,

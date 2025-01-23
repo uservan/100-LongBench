@@ -16,21 +16,22 @@ from utils.metrics import (
 )
 
 dataset2metric = {
-    'qa':qa_f1_score, # qa_f1_score, qa_model_score
-    'sum':rouge_score, # rouge_score, sum_model_score
+    'qa':qa_model_score, 
+    'sum':sum_model_score, 
     "passage_count": acc_score,
     "passage_retrieval": acc_score,
     "counting_stars": acc_score,
     "kv_retrieval": kv_retrieval_score,
 }
+model = None
 
 def parse_args(args=None):
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model', type=str, default='llama-3-8B-Instruct_96.0')
+    parser.add_argument('--pred_path', type=str, default='preds/pred_base')
+    parser.add_argument('--model', type=str, default='llama2-7b-hf-slimpajama-yarn-32k')
+    parser.add_argument('--original_metric', type=bool, default=False)
     parser.add_argument('--qa_filter', type=float, default=0.5)  # 0.5
     parser.add_argument('--metric_model', type=str, default='gpt-4o-mini-2024-07-18')
-    parser.add_argument('--pred_path', type=str, default='pred_new2')
-    parser.add_argument('--dataset_path', type=str, default='data/open_model')
     return parser.parse_args(args)
 
 def scorer(dataset, predictions, answers, qas, null_preds, qa_filter, all_classes):
@@ -61,9 +62,19 @@ def scorer(dataset, predictions, answers, qas, null_preds, qa_filter, all_classe
 
 if __name__ == '__main__':
     args = parse_args()
-    if args.metric_model: model=load_model(args.metric_model, temperature=0.1)
-    path = set_global_path(f"{args.pred_path}/{args.model}/")
-    out_path = set_global_path(f"{args.pred_path}/{args.model}/result.json")
+    path = set_global_path(f"{args.pred_path}/{args.model}")
+    out_path = set_global_path(f"{args.pred_path}/{args.model}/result_no.json")
+    # wehther to use filter/new metric
+    if args.original_metric:
+        dataset2metric['qa'] = qa_f1_score
+        dataset2metric['sum'] = rouge_score
+        args.qa_filter = -1.0
+        out_path = set_global_path(f"{args.pred_path}/{args.model}/result_original.json")
+    else:
+        if args.qa_filter > 0:
+            out_path = set_global_path(f"{args.pred_path}/{args.model}/result.json") 
+            model=load_model(args.metric_model, temperature=0.1)
+    # evaluation
     all_scores = dict()
     if os.path.exists(out_path):
         with open(out_path, "r", encoding="utf-8") as f:
@@ -75,7 +86,7 @@ if __name__ == '__main__':
         predictions, answers, qa, null_preds, lengths = [], [], [], [], []
         dataset = filename.split('.')[0]
         if dataset in all_scores.keys(): continue
-        logger("Evaluating on:", filename)
+        logger(f"Evaluating on: {filename}")
         flag = True
         with open(f"{path}/{filename}", "r", encoding="utf-8") as f:
             for line in f:

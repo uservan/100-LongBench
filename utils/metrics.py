@@ -258,6 +258,10 @@ def parse_qa_json(text):
         return r
     return None
 
+def set_None_0(i):
+    if i is None: return 0
+    else: return i
+
 def qa_model_score(prediction, ground_truth, **kwargs):
     qa, model= kwargs["qa"], kwargs["model"]
     p = judge_prompt.format(question=qa, correct_answers=ground_truth, parsed_output=prediction)
@@ -272,7 +276,7 @@ def qa_model_score(prediction, ground_truth, **kwargs):
             print("Warning! Couldn't get a score")
             print(f"GPT-4 output: {o['output']}")
         if scores is not None:
-            s = scores["fluency"] * scores["correctness"]
+            s = set_None_0(scores["fluency"]) * set_None_0(scores["correctness"])
     return s / 6
 
 def parse_sum_json(text):
