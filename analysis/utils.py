@@ -151,7 +151,6 @@ def draw_avg_line(original_performances, lengths, save=False):
     handles = [plt.Line2D([0], [0], color=colors(i), linestyle='-', linewidth=2, label=task) for i, task in enumerate(models)]
     fig.legend(handles, [change_name(i) for i in list(models)] , loc='upper center', ncol=3, fontsize=15, bbox_to_anchor=(0.5, 1.12))
 
-    # 显示图形
     if save: plt.savefig("results_original.pdf", format="pdf", dpi=600, bbox_inches="tight")
-    plt.tight_layout()  # 自动调整子图间的间距
+    plt.tight_layout()  
     plt.show()
