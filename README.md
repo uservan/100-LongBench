@@ -1,5 +1,16 @@
 # 💯-LongBench
 
+### Prepare your setting
+- complete some settings for the project in ./utils/utils.py, like huggingface token, OpenAI API Key.
+    ```python
+    project_dir = './'
+    cache_dir = './cache'
+    token= 'your huggingface token'
+    api_keys = {
+        'openai': 'your api key'
+    }
+    ```
+
 ### Generate Evaluation Datasets
 - Each task generates datasets of different lengths, such as 8k, 16k, 32k, 64k, 128k, and 256k, with each dataset containing 100 data samples.
     ```shell

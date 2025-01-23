@@ -78,8 +78,8 @@ if __name__ == '__main__':
     args = parse_args()
     seed_everything(args.seed)
     
-    pred_path = set_global_path(args.pred_path) #  set_global_path("pred_new2")
-    dataset_path = set_global_path(args.dataset_path) # set_global_path("data/test")
+    pred_path = set_global_path(args.pred_path) 
+    dataset_path = set_global_path(args.dataset_path)
     if not os.path.exists(pred_path): os.makedirs(pred_path)
     model_name = args.model
     logger(model_name)
