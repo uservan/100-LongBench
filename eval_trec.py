@@ -27,8 +27,8 @@ model = None
 
 def parse_args(args=None):
     parser = argparse.ArgumentParser()
-    parser.add_argument('--pred_path', type=str, default='preds/pred_base')
-    parser.add_argument('--model', type=str, default='llama2-7b-hf-slimpajama-yarn-32k')
+    parser.add_argument('--pred_path', type=str, default='preds/pred_open_model')
+    parser.add_argument('--model', type=str, default='llama-3.1-8B-Instruct')
     parser.add_argument('--original_metric', type=bool, default=False)
     parser.add_argument('--qa_filter', type=float, default=0.5)  # 0.5
     parser.add_argument('--metric_model', type=str, default='gpt-4o-mini-2024-07-18')

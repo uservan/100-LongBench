@@ -17,10 +17,10 @@ sys.path.append(models_dir)
 def parse_args(args=None):
     parser = argparse.ArgumentParser()
     parser.add_argument('--model', type=str, default='llama-3-8B-Instruct')
-    parser.add_argument('--pred_path', type=str, default='preds/pred_ratio')
+    parser.add_argument('--pred_path', type=str, default='preds/pred_open_model')
     parser.add_argument('--dataset_path', type=str, default='data/open_model')
     parser.add_argument('--seed', type=int, default=42)
-    parser.add_argument('--ratio', type=float, default=1.0)
+    parser.add_argument('--ratio', type=float, default=1.0, help='control the ratio of rope')
     return parser.parse_args(args)
 
 def get_pred(model:LLM, data, max_gen, prompt_format, preds=[] ,out_path=''):

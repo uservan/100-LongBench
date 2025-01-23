@@ -28,7 +28,7 @@ def parse_args(args=None):
     parser = argparse.ArgumentParser()
     parser.add_argument('--rows', type=int, default=100, help='The number of each dataset')
     parser.add_argument('--lengths', type=str, default='8,16,32,64,128,256', help='Generated length, where 8 represents 8*1024')
-    parser.add_argument('--save_path', type=str, default='data/test')
+    parser.add_argument('--save_path', type=str, default='data/open_model')
     return parser.parse_args(args)
 
 args = parse_args()
