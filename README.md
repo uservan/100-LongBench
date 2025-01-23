@@ -3,9 +3,9 @@
 ### Prepare your setting
 - complete some settings for the project in ./utils/utils.py, like huggingface token, OpenAI API Key.
     ```python
-    project_dir = './'
-    cache_dir = './cache'
-    token= 'your huggingface token'
+    project_dir = './' # path to the current project
+    cache_dir = './cache' # path to the huggingface cache
+    token= 'your huggingface token' # huggingface token
     api_keys = {
         'openai': 'your api key'
     }
