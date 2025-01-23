@@ -1,4 +1,4 @@
-# 100-LongBench
+# 💯-LongBench
 
 ### Generate Evaluation Datasets
 - Each task generates datasets of different lengths, such as 8k, 16k, 32k, 64k, 128k, and 256k, with each dataset containing 100 data samples.
